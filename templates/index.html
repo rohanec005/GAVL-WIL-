@@ -1,0 +1,378 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+
+        <!DOCTYPE html>
+        <html>
+            <head>
+              <meta charset="utf-8">
+              <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+              <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+              <!-- <meta http-equiv="X-UA-Compatible" content="IE=10" /> -->
+                <title>GAVL Video Editor</title>
+
+                <script src="https://cdn.bootcss.com/picturefill/3.0.3/picturefill.min.js"></script>
+                <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/Normalize.css') }}">
+                <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/bootstrap.css') }}">
+                <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+                <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+                <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/buttonStyle.css') }}">
+                <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/css.css') }}">
+                <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/layout.css') }}">
+                <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+                <link rel="stylesheet" href= "{{url_for('static',filename='styles/loading.css')}}">
+
+
+
+               <!--  <script src="src/jquery.percentageloader-0.1.js"></script> -->
+                <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+                <!--[if lt IE 9]>
+                <script type="text/javascript" src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+                <![endif]-->
+                <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+                 <script>
+
+                 function playvideo() {
+                   var player = document.getElementById("videoPlayer");
+                   player.controls =true;
+                   player.autoplay=true;
+                   url=document.getElementById("auctionUrl").innerHTML;
+                   player.src = url;
+                   player.play();
+                           }
+
+
+
+                 function preview(bidId) {
+                   var bidIndex;
+                   if(bidId.includes("intro"))
+                   {
+                     bidIndex="intro";
+                   }
+                   else if (bidId.includes("outro"))
+                   {
+                     bidIndex="outro";
+                   }
+                   else {
+                     bidIndex = bidId.match(/\d+/g).map(n => parseInt(n));
+                   }
+
+                     var checkBox = document.getElementById(bidIndex);
+                        // to check if it is CLICKED
+                     if (checkBox.checked == true){
+                       var player = document.getElementById("videoPlayer");
+                       player.controls =false;
+                       player.autoplay=true;
+                       var mp4Vid=document.getElementById("auctionUrl").innerHTML;
+                       var bidtime=document.getElementById('second'+bidIndex).innerHTML;
+                       var preBuffer=document.getElementById('pre'+bidIndex).value;
+                       var postBuffer=document.getElementById('post'+bidIndex).value;
+                       var newsource=mp4Vid+"#t="+(Number(bidtime)-Number(preBuffer))
+                       +","+(Number(bidtime)+Number(postBuffer));
+                       player.pause();
+                       player.src=newsource;
+                       player.load();
+                       player.play();
+                      } else {
+                         alert("Please choose the bid!!");
+                       }
+               }
+
+               function previewAll(counter)
+               {
+                  var i;
+                  var checkedindex = 0;
+                  var videoSegments=[];
+                  var intro_checkbox=document.getElementById("intro");
+                  //var outro_checkbox=document.getElementById("outro");
+                  if(intro_checkbox.checked == true)
+                  {
+                  var introtime=getTime("intro");
+                  videoSegments[checkedindex]=String(introtime);
+                  checkedindex++;
+                  }
+                  for(i = 0; i <= counter; i++)
+                  {
+                      var checkboxvalue=document.getElementById(String(i))
+                      if(checkboxvalue.checked == true){
+                      //document.getElementById("test2").innerHTML = "hello";
+                      var bidtime=document.getElementById('second'+i).innerHTML;
+                      var preBuffer=document.getElementById('pre'+i).value;
+                      var postBuffer=document.getElementById('post'+i).value;
+                      var start=Number(bidtime)-Number(preBuffer);
+                      var end=Number(bidtime)+Number(postBuffer);
+                      videoSegments[checkedindex]=String(start+"-"+end);
+                      checkedindex++;
+                    }
+                  }
+                 var outro_checkbox=document.getElementById("outro");
+                  if(outro_checkbox.checked == true)
+                  {
+                   var outrotime=getTime("outro");
+                   videoSegments[checkedindex]=String(outrotime);
+                  }
+
+                if(videoSegments.length>=2)
+                {  
+                  playVideoSegments(videoSegments);}
+                else {
+                  alert("Select Bids /input buffers value");
+                }
+
+                //document.getElementById("BidsForm").reset();
+               }
+
+              function playVideoSegments(videoSegments) {
+
+                  var currentSegment = 0; // Segment being played
+                  var currentSegmentElement=videoSegments[currentSegment];
+                  var endTime= currentSegmentElement.slice(currentSegmentElement.indexOf("-")+1,currentSegmentElement.length);
+                 var videoPlayer = document.getElementById('videoPlayer');
+                 // to test if the preview is working without play the orginal video
+                 videoPlayer.src=document.getElementById("auctionUrl").innerHTML;
+                 var startTime=currentSegmentElement.slice(0,currentSegmentElement.indexOf("-"));
+                 videoPlayer.currentTime = startTime;
+                 videoPlayer.controls =false;
+                 videoPlayer.autoplay=true;
+                 videoPlayer.play(); // Starts playing the video from startTime
+                videoPlayer.addEventListener("timeupdate", function() {
+                if(videoPlayer.currentTime >= endTime) {
+                   // Segment completed
+                  currentSegment++;
+                 if(currentSegment < videoSegments.length) {
+                 // Not the last segment in the array
+                  currentSegmentElement=videoSegments[currentSegment];
+                  var startTime=currentSegmentElement.slice(0,currentSegmentElement.indexOf("-"));
+                  videoPlayer.currentTime = startTime;
+                  endTime=currentSegmentElement.slice(currentSegmentElement.indexOf("-")+1,currentSegmentElement.length);
+                       }
+                    else if (currentSegment == videoSegments.length) {
+                     // Last segment in the array is over
+                   videoPlayer.pause();
+                        } 
+                        }
+                        }, false);
+               }
+
+               function getTime(i)
+               {
+                 var time=document.getElementById('second'+String(i)).innerHTML;
+                 var preBuffer=document.getElementById('pre'+String(i)).value;
+                 var postBuffer=document.getElementById('post'+String(i)).value;
+                 var start=Number(time)-Number(preBuffer);
+                 var end=Number(time)+Number(postBuffer);
+                 var result=String(start+"-"+end);
+                 return result;
+               }
+
+                function checkForm()
+                {
+
+                   var ischecked =$('input[type=checkbox]:checked').length;
+                   if (ischecked > 0) {
+                    var videoPlayer = document.getElementById('videoPlayer');
+                    videoPlayer.pause();
+                    $('.container').hide();
+                    $('.circle').show();
+                    return true;
+                  }
+                   else
+                   {
+                     alert("please select bids");
+                     return false;
+                   }
+                }
+
+               </script>
+            </head>
+            <body >
+              <header id="page-header">
+                  <div class="logo_img">
+                    <img src="{{ url_for('static', filename='images/New Gavl Logo.png') }}" id="logo" alt:"this is logo"/>
+                  </div>
+                  <div class="title">
+                    <h1 >GAVL Video Editor</h1>
+                  </div>
+                  <div class="user">
+                      <span>GAVL</span>
+                      |
+                      <a href="/logout">Log Out</a>
+                  </div>
+              </header>
+
+        <div class="container">
+          <div>
+            <div id="myVideo" class="videoL">
+               <video id='videoPlayer' controls onclick="playvideo()">
+               <source src="" type="video/mp4">
+
+              </video>
+<! ---------------------Morgan's changes start here-------------------------------->
+              <div class="videoInfo">
+                     <stan> <b id="originalsource"> </b> </br>
+                       video Duration: {{duration}} seconds</br>
+                       </br>
+                    </stan>
+                 </div>
+            </div>
+<! ---------------------Morgan's changes end here-------------------------------->
+        <div class="auctionInfo">
+            <form id="newAuctionForm" action="/auctionForm/">
+            <span id="aucID"> Auction ID :</span></br>
+            <span><label id="auctionId" >&nbsp{{auction}}</span></br>
+            <span id="aucUrl">Auction URL :</span>
+            <span><label id="auctionUrl" for"auctionUrl">{{auctionUrl}}</label></span></br>
+             <div class="auctionBtn">
+               <input  class="buttoncolor" type="submit" value="New Auction" id="newAuction">
+             </div>
+             <!-- <p> The video Path is:  <b id="video_id"> {{ auction.videoPath }}</b> </p>
+             <p> The Number of Bidders is: {{ auction.bidders }}</p> -->
+             </form>
+           </div>
+        <div class="bidList">
+            <!-- <div >
+                 <span id="messageName">Bid</span>
+                 <span id="messageTime">TimeStamp</span>
+                 <span id="messageStart">Start(sec)</span>
+
+                 <span id="negNum"> -3  -2  -1  0</span>
+                 <span id="posNum">0&ensp;1&ensp;2&ensp;3</span>
+              </div> -->
+
+          <form  id="BidsForm" action="/success/" method="post" onsubmit="return checkForm(this)">
+          {% for bid,time,second in bids_input %}
+          <!-- <div class="leftControl"> -->
+          {% if loop.first %}
+          <div class="Intro">
+            <div class="checkList">
+              <div class="smallbtn c1">
+                <input class="toggle1" type="checkbox" id="intro" name="intro" value="intro">
+              </div>
+              <div class="smallbtn c2">
+                  <label  id="introlabel" for="intro"> Introduction </label>
+              </div>
+              <div class="smallbtn c3">
+                <label  for="timeintro" id="timeintro">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+              </div>
+              <div class="smallbtn c4">
+                <b><i><label for"secondintro" id="secondintro">{{introduction}}</label></b></i>
+              </div>
+            </div>
+
+            <div class="openList">
+              <div class="rangeBoxLeft">
+                <input  type="number"  size="2" min="0" max="25" value="0" id="preintro" name="preintro">
+              </div>
+             <div class="slider slider1 vertical-range">
+                <input type="range" min="0" max="25" value="0" step="5" id="backintro" name="backintro" oninput="preintro.value = backintro.value">
+             </div>
+             <div class="slider slider2 vertical-range">
+                <input type="range" min="0" max="25" step="5" value="0" id="forwardintro" name="forwardintro" oninput="postintro.value = forwardintro.value">
+             </div>
+             <div class="rangeBoxRight">
+                <input  type="number"  size="2" min="0" max="25" value="0" id="postintro" name="postintro" >
+             </div>
+             <div class="preview_btn">
+               <input type="button" id="intro{{loop.index-1}}" value="Preview" onclick="preview(this.id)" />
+             </div>
+
+            </div>
+
+          </div>
+
+          {% endif %}
+            <div class="checkList">
+
+              <div class="smallbtn c1">
+                <!-- <label class="tgl tgl-gray" style="font-size:30px"> -->
+
+                  <input class="toggle1" type="checkbox" id={{loop.index-1}} name={{loop.index-1}} value={{loop.index-1}}>
+                  <!-- <span>&nbsp;&nbsp;&nbsp;</span> -->
+                <!-- </label> -->
+              </div>
+              <div class="smallbtn c2">
+                <label  id="bidName" for="label_{{bid.bidderName}}"> #Bid_{{loop.index}}</label>
+              </div>
+              <div class="smallbtn c3">
+                <label  for="time{{loop.index-1}}" id="time{{loop.index-1}}">{{time}}</label>
+              </div>
+              <div class="smallbtn c4">
+                <b><i><label for"second{{loop.index-1}}" id="second{{loop.index-1}}">{{second}}</label> </b></i>
+              </div>
+            </div>
+            <div class="openList">
+                <div class="rangeBoxLeft">
+                   <input  type="number"  size="4" min="0" max="99" value="0" id="pre{{loop.index-1}}" name="pre{{loop.index-1}}">
+                </div>
+               <div class="slider slider1 vertical-range">
+                 <input type="range" min="0" max="3" value="0"  id="back{{loop.index-1}}" name="back{{loop.index-1}}" oninput="pre{{loop.index-1}}.value = back{{loop.index-1}}.value">
+               </div>
+               <div class="slider slider2 vertical-range">
+                  <input type="range" min="0" max="3"  value="0" id="forward{{loop.index-1}}" name="forward{{loop.index-1}}" oninput="post{{loop.index-1}}.value = forward{{loop.index-1}}.value">
+               </div>
+                <div class="rangeBoxRight">
+                    <input  type="number"  size="4" min="0" max="99" value="0" id="post{{loop.index-1}}" name="post{{loop.index-1}}" >
+                </div>
+               <div class="preview_btn">
+                  <input type="button" id="click{{loop.index-1}}" value="Preview" onclick="preview(this.id)" />
+               </div>
+           </div>
+
+         <!-- </div> -->
+          {% if loop.last %}
+            <div class="Outro">
+              <div class="checkList">
+                <div class="smallbtn c1">
+                   <input class="toggle1" type="checkbox" id="outro" name="outro" value="outro">
+                </div>
+                <div class="smallbtn c2">
+                  <label  id="outrolabel" for="outro"> Confirmation </label>
+                </div>
+                <div class="smallbtn c3">
+                  <label  for="timeoutro" id="timeoutro">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+                </div>
+                <div class="smallbtn c4">
+                  <b><i><label for"secondoutro" id="secondoutro">{{confirmation}}</label> </b></i>
+                </div>
+              </div>
+              <div class="openList">
+                <div class="rangeBoxLeft">
+                  <input  type="number"  size="2" min="0" max="25" value="0" id="preoutro" name="preoutro">
+                </div>
+                <div class="slider slider1 vertical-range">
+                  <input type="range" min="0" max="25" value="0" step="5" id="backoutro" name="backoutro" oninput="preoutro.value = backoutro.value">
+                </div>
+                <div class="slider slider2 vertical-range">
+                  <input type="range" min="0" max="25" step="5" value="0" id="forwardoutro" name="forwardoutro" oninput="postoutro.value = forwardoutro.value">
+                </div>
+                <div class="rangeBoxRight">
+                  <input  type="number"  size="2" min="0" max="25" value="0" id="postoutro" name="postoutro" >
+                </div>
+                <div class="preview_btn">
+                  <input type="button" id="outro{{loop.index-1}}" value="Preview" onclick="preview(this.id)" />
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+         <div class="genAll">
+            <input  class="buttoncolor check" type="button" id="previewall" value="Preview" onclick="previewAll({{loop.index-1}})" />
+            <input  class="buttoncolor check" type="submit" value="Generate" id="generate" />
+            
+         </div>
+         {% endif %}
+          {% endfor %}
+         </form>
+
+          </div>
+          </div>
+         </div>
+                 <div class="circle">
+                     Loading
+                 </div>
+
+        </body>
+        </html>

@@ -1,0 +1,153 @@
+.title h1{
+  font-size: 30px;
+}
+
+.genBtn{
+  -webkit-transition-duration: 0.4s; /* Safari */
+  -moz-transition-duration: 0.4s;
+       transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius:22px;
+  -moz-border-radius:22px; /* Old Firefox */
+}
+
+.genBtn:hover{
+  background-color: #888888;
+  color: white;
+}
+
+
+
+            a {
+                text-decoration: none;
+            }
+            #page-header #hamburger p{
+              display: inline-block;
+              margin-left: 35px;
+              line-height: 30px;
+            }
+            #sidebar-nav #sidebar-nav-list .sidebar-nav-item{
+              list-style: none;
+            }
+            .file-upload__label{
+              display: inline-block;
+              padding: 0;
+            }
+            .secondTitle{
+              color: #000;
+            }
+            .bidOpe .preview_btn{
+              font-size: 16px;
+              margin-top: 36px;
+              outline: none;
+            }
+
+
+
+
+.user{
+  float: right;
+margin: -23px 15px 0;
+}
+
+.user a:hover{
+  color: #ffa77f;
+  text-decoration: underline;
+}
+
+.bidList{
+  color: #00D2C9;
+  border: solid 2px #d1cbc0;
+}
+.bidHeader{
+  height: 35px;
+  line-height: 45px;
+  font-size: 18px;
+}
+
+.generate{
+  text-align: center;
+}
+
+
+/* .genAll  input[type=button]:hover {
+  -webkit-transition: all 300ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  transition: all 300ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  -webkit-box-shadow:inset 0px 0px 5px #fff;
+
+　　　　　　-moz-box-shadow:inset 0px 0px 5px #fff;
+
+　　　　　　box-shadow:inset 0px 0px 5px #fff;
+}
+.genAll  input[type=button]:active{
+  border-bottom: 1px solid #33322f;
+  top: 5px;
+  border-left: 1px solid #000000;
+  margin-right: 2px;
+  box-shadow: -2px 4px 7px 1px rgba(51, 50, 47, 0.7), 5px -5px 20px 10px rgba(51, 50, 47, 0.5) inset, -1px 2px 1px rgba(0, 0, 0, .7);
+  z-index: -1;
+} */
+.auctionInfo{
+  border: solid 2px #d1cbc0;
+}
+#auctionId{
+  font-size: 17px;
+  /* color: white; */
+}
+#auctionUrl{
+  font-size: 15px;
+  /* word-wrap: normal; */
+
+}
+#aucID, #aucUrl{
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  display: inline;
+  /* position: absolute; */
+
+  /* height:30%; */
+
+
+}
+.openList .preview_btn input{
+  color: #00D2C9;
+}
+.generate input[type=button],.openList .preview_btn input[type=button], .genAll input[type=button],.genAll a, .genAll input[type=submit]{
+  color: #00D2C9;
+  background: transparent;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-box-shadow: 0 0 10px #00D2C9;
+     -moz-box-shadow: 0 0 10px #00D2C9;
+          box-shadow: 0 0 10px #00D2C9;
+  border: 0;
+  cursor: pointer;
+}
+.auctionBtn .buttoncolor{
+  color: #fff;
+  background: #292a38;
+  -webkit-box-shadow: 0 0 10px #00D2C9;
+     -moz-box-shadow: 0 0 10px #00D2C9;
+          box-shadow: 0 0 10px #00D2C9;
+  border: 0;
+  cursor: pointer;
+}
+}
+.generate input[type=button]{
+  margin: 0 5px;
+}
+.generate input[type=button]:hover,.openList .preview_btn input[type=button]:hover, .genAll input[type=button]:hover,.genAll a:hover, .genAll input[type=submit]:hover, .auctionBtn input[type=submit]:hover{
+  background: WHITE;
+	color: #262626;
+}
+
+
+.title{
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    margin-left: -100px;
+    font-size: 26px;
+    font-family: "Century Gothic";
+
+}

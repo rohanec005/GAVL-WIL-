@@ -1,0 +1,220 @@
+/* delete */
+
+
+.logo_img{
+  margin: 15px 15px 0;
+
+
+}
+
+.introContainer, .outroContainer{
+  float: left;
+}
+.auctionInfo{
+  color: #00D2C9;
+  width: 56%;
+  height:155px;
+  margin-top: 0.5%;
+  margin-left: 2%;
+  padding-left: 5px;
+  float: right;
+  overflow: auto;
+  position: relative;
+  /* box-sizing: border-box; */
+}
+/* #auctionId{
+  position: relative;
+  left:50%;
+  margin-left: -10%;
+} */
+/* #auctionUrl{
+  position: relative;
+} */
+.auctionBtn{
+  /* width: 56%; */
+  margin-left:-10%;
+  /* height:30%; */
+  left:50%;
+  position: absolute;
+}
+/* left start */
+#messageName, #messageTime, #messageStart, #negNum, #posNum{
+  color:#fff;/* all */
+  color:#fff\9;/* IE */
+  *color:#fff;/* IE6/IE7 */
+  _color: #fff;/* IE6 */
+  /* font-family: Consolas, "Courier New", Courier, mono; */
+  text-shadow: 0 0 2px #fff;
+  font-size: 1.1em;
+}
+#messageName{
+  margin-left:2.1em;
+}
+#messageTime{
+  margin-left:2em;
+}
+#messageStart{
+  margin-left:2.1em;
+}
+#negNum{
+  margin-left:1.2em;
+}
+#posNum{
+  margin-left:1.1em;
+}
+div .controller{
+  margin-top:10px;
+  /* padding-top: 10px; */
+}
+.bidList{
+ width: 56%;
+ margin-top: 1%;
+ margin-left: 2%;
+ float: right;
+ height: 350px;
+ overflow: auto;
+ padding-left: 5px;
+
+}
+
+.checkList{
+  -ms-float: left;
+  -webkit-float:left;
+  float: left;
+  margin-top: 10px;
+  /* overflow: hidden; */
+  display:inline-block;
+  /* z-index: 1; */
+
+}
+.checkList label{
+  padding-left: 0.4em;
+  margin-top: 1.5%;
+}
+.Intro, .Outro{
+  float: left;
+  -webkit-float:left;
+}
+.smallbtn{
+  float: left;
+  -webkit-float:left;
+}
+.c1{
+    margin-top: 3%;
+}
+.c2{
+  margin-top: 1.5%;
+}
+.c3{
+  margin-top: 1%;
+}
+.c4{
+  margin-top: 1.5%;
+}
+/* slider  start */
+.openList {
+    margin-top: 10px;
+    overflow: hidden;
+    padding: 5px 0;
+    padding-left: 2.4em;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: left;
+    float: left;
+
+    /* margin-left:15%; */
+}
+.openList .preview_btn{
+    display: inline-block;
+    width: 30%;
+    float: left;
+    text-align: center;
+}
+.openList .slider{
+    float: left;
+}
+
+.openList .preview_btn input {
+    width: 80%;
+    font-size: 16px;
+    outline: none;
+    -webkit-transition-duration: 0.4s;
+    -moz-transition-duration: 0.4s;
+    -ms-transition-duration: 0.4s;
+         transition-duration: 0.4s;
+    cursor: pointer;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+         border-radius: 25px;
+}
+.openList .slider1,.openList .slider2{
+  width:23%;
+  margin-top:2%;
+  margin-left:4.5%;
+  float: left;
+}
+/* rangeBox ***********************/
+  .openList .rangeBoxLeft,.openList .rangeBoxRight{
+    width:24px;
+    height: 24px;
+    float: left;
+  }
+  .openList .rangeBoxLeft,.openList .rangeBoxRight,.openList .slider{
+    /* margin:5px 0; */
+  }
+
+/* slider end */
+
+/* video layout start */
+.videoL{
+  width: 42%;
+  height: auto;
+  float: left;
+  position: relative;
+  /* height:100%; */
+  /* top:1px; */
+  margin-top: 2%;
+  height: 55vh;
+}
+#videoPlayer{
+  width:100%;
+  height:100%;
+}
+.videoInfo{
+  float: left;
+  width:100%;
+  height:35%;
+  display: inline-block;
+  position: relative;
+  overflow: auto;
+  margin-top:1%;
+  overflow-y:auto;
+  word-wrap: break-word;
+  /* left: -14%; */
+}
+.genAll{
+  /* top:15px; */
+  width:30%;
+  margin-top: 7.5%;
+  margin-left: 7%;
+  /* height:30%; */
+  /* left: 0%; */
+  position: relative;
+  float:left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -moz-box;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+.genAll .check, .auctionBtn .buttoncolor{
+  width:auto;
+  padding: 5px 8px;
+  border-radius: 5px;
+  /* margin-bottom: 5px; */
+  /* margin-left: 50%; */
+  /* flex: 1; */
+}
+/* video layout end */

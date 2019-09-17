@@ -1,0 +1,76 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+
+        <!DOCTYPE html>
+        <html>
+            <head>
+              <meta charset="utf-8">
+              <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+              <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+              <!-- <meta http-equiv="X-UA-Compatible" content="IE=10" /> -->
+                <title>GAVL Video Editor</title>
+
+                <script src="https://cdn.bootcss.com/picturefill/3.0.3/picturefill.min.js"></script>
+                <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/Normalize.css') }}">
+                <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/bootstrap.css') }}">
+                <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+                <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+                <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/css.css') }}">
+                <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/download_layout.css') }}">
+
+
+                <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+                <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+                <!--[if lt IE 9]>
+                <script type="text/javascript" src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+                <![endif]-->
+                <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+            </head>
+            <body >
+              <header id="page-header">
+                  <div class="logo_img">
+                    <img src="{{ url_for('static', filename='images/New Gavl Logo.png') }}" id="logo" alt:"this is logo"/>
+                  </div>
+                  <div class="title">
+                    <h1 >GAVL Video Editor</h1>
+                  </div>
+                  <div class="user">
+                      <span>GAVL</span>
+                      |
+                      <a href="/logout">Log Out</a>
+                  </div>
+              </header>
+        <div class="container">
+          <div class = "overall">
+            <div id="myVideo" class="videoL">
+               <video id='videoPlayer' controls autoplay >
+                <source id="mp4Source" src="{{'/static/video/' + videoid.split('/')[-1]}}" type="video/mp4" >
+              </video>
+              <span id = "videoInfo">{{videoid}}</span>
+            </div>
+          </div>
+<div class="btnBox">
+
+   <div class="genAll">
+    <form id="newAuctionForm" action="/auctionForm/">
+     <input class="buttoncolor check" type="submit" value="New Auction" id="newAuction"/>
+   </form>
+     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+     <a class="likebutton buttoncolor check" href="{{'/static/video/' + videoid.split('/')[-1]}}" download>Download</a>
+     </div>
+
+</div>
+
+
+
+            </div>
+              <script type="text/javascript">
+                function redirectSuccess() {
+                  return window.location.href = '/downloadSucessful'
+                }
+               </script>
+        </body>
+        </html>
